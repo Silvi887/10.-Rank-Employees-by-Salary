@@ -1,0 +1,8 @@
+SELECT p.EmployeeID, p.FirstName, p.LastName,p.Salary, p.Rank
+FROM
+(SELECT e.EmployeeID, e.FirstName, e.LastName,
+e.Salary, DENSE_RANK() OVER(PARTITION BY e.Salary
+ORDER BY e.EmployeeId) AS Rank
+FROM Employees e WHERE e.Salary BETWEEN 
+10000 AND 50000) AS P
+ORDER BY p.Salary DESC
